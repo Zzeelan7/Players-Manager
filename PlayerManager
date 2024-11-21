@@ -1,0 +1,195 @@
+#Importing Modules
+
+
+import mysql.connector as my
+
+#Connecting MySQL with Python
+
+ob=my.connect(host='localhost',user='root',passwd='MySQL',database='cbse202312a')
+a=ob.cursor()
+
+#Creating Table
+
+a.execute("create table if not exists BlueLockClub(PlayerID int,PlayerName varchar(20),Age int,DateofApplication date,Rank int,Salary int)")
+ob.commit()
+
+#Function to add values in Table
+
+def Add():
+  a=ob.cursor()
+  b=int(input("PlayerID="))
+  c=input("PlayerName=")
+  d=int(input("Age="))
+  e=input("Date of Application=")
+  f=int(input("Rank="))
+  g=int(input("Salary(in $)="))
+  a.execute("insert into BlueLockClub values({},'{}',{},'{}',{},{})".format(b,c,d,e,f,g))
+  ob.commit()
+
+#Function to Display the table
+
+def Display():
+  a=ob.cursor()
+  a.execute("Select *from BlueLockClub")
+  A=a.fetchall()
+  print(A)
+
+#Function to search for an record using
+
+def Search():
+  print("Enter the parameter\n1.PlayerID 1\n2.PlayerName 2\n3.Age 3\n4.DateofApplication 4\n5.Ran 5\n6.Salary 6")
+  ch=int(input("Enter Choice"))
+  if ch==1:
+    A=int(input("Enter PlayerID="))
+    a=ob.cursor()
+    a.execute("Select *from BlueLockClub where PlayerID={}".format(A))
+    D=a.fetchall()
+    print(D)
+  elif ch==2:
+    B=input("Enter PlayerName=")
+    a=ob.cursor()
+    a.execute("Select *from BlueLockClub where PlayerName='{}'".format(B))
+    D=a.fetchall()
+    print(D)
+  elif ch==3:
+    C=int(input("Enter Age="))
+    a=ob.cursor()
+    a.execute("Select *from BlueLockClub where Age={}".format(C))
+    D=a.fetchall()
+    print(D)
+  elif ch==4:
+    E=input("Enter date of application=")
+    a=ob.cursor()
+    a.execute("Select *from BlueLockClub where date='{}'".format(E))
+    D=a.fetchall()
+    print(D)
+  elif ch==5:
+    F=int(input("Enter Rank="))
+    a=ob.cursor()
+    a.execute("Select *from BlueLockClub where Rank={}".format(F))
+    D=a.fetchall()
+    print(D)
+  elif ch==6:
+    G=int(input("Enter Salary(in $)="))
+    a=ob.cursor()
+    a.execute("Select *from BlueLockClub where Salary={}".format(G))
+    D=a.fetchall()
+    print(D)
+
+
+#Function to Modify a record by using
+
+def Modify():
+  print("Enter the parameter\n1.PlayerID 1\n2.PlayerName 2\n3.Age 3\n4.DateofApplication 4\n5.Rank 5\n6.Salary(in $) 6")
+  ch=int(input("Enter Choice"))
+  if ch==1:
+    A=int(input("Enter new PlayerID="))
+    G=int(input("Enter old PlayerID="))
+    a=ob.cursor()
+    a.execute("Update BlueLockClub set PlayerID={} where PlayerID={}".format(A,G))
+    ob.commit()
+  elif ch==2:
+    B=input("Enter new PlayerName=")
+    H=input("Enter old PlayerName=")
+    a=ob.cursor()
+    a.execute("Update BlueLockClub set PlayerName='{}' where PlayerName='{}'".format(B,H))
+    ob.commit()
+  elif ch==4:
+    C=input("Enter new date of application=")
+    I=input("Enter old date of application=")
+    a=ob.cursor()
+    a.execute("Update BlueLockClub set date='{}' where date='{}'".format(C,I))
+    ob.commit()
+  elif ch==3:
+    D=input("Enter new Age=")
+    J=input("Enter old Age=")
+    a=ob.cursor()
+    a.execute("Update BlueLockClub set Age={} where Age={}".format(D,J))
+    ob.commit()
+  elif ch==5:
+    E=input("Enter new Rank=")
+    K=input("Enter old Rank=")
+    a=ob.cursor()
+    a.execute("Update BlueLockClub set Rank={} where Rank={}".format(E,K))
+    ob.commit()
+  elif ch==6:
+    F=input("Enter new Salary(in $)=")
+    L=input("Enter old Salary(in $)=")
+    a=ob.cursor()
+    a.execute("Update BlueLockClub set Salary={} where Salary={}".format(F,L))
+    ob.commit()
+
+#Function to delete an record
+
+def Delete():
+  print("Enter the parameter\n1.PlayerID 1\n2.PlayerName 2\n3.Age 3\n4.DateofApplication 4\n5.Rank 5\n6.Salary(in $) 6")
+  ch=int(input("Enter Choice"))
+  if ch==1:
+    A=int(input("Enter new PlayerID="))
+
+    a=ob.cursor()
+    a.execute("delete from BlueLockClub where PlayerID={}".format(A))
+    ob.commit()
+  elif ch==2:
+    B=input("Enter new PlayerName=")
+
+    a=ob.cursor()
+    a.execute("delete from BlueLockClub where PlayerName='{}'".format(B))
+    ob.commit()
+  elif ch==4:
+    C=input("Enter new date of application=")
+
+    a=ob.cursor()
+    a.execute("delete from BlueLockClub where date='{}'".format(C))
+    ob.commit()
+  elif ch==3:
+    D=input("Enter new Age=")
+
+    a=ob.cursor()
+    a.execute("delete from BlueLockClub where Age={}".format(D))
+    ob.commit()
+  elif ch==5:
+    E=input("Enter new Rank=")
+
+    a=ob.cursor()
+    a.execute("delete from BlueLockClub where Rank={}".format(E))
+    ob.commit()
+  elif ch==6:
+    F=input("Enter new Salary(in $)=")
+
+    a=ob.cursor()
+    a.execute("delete from BlueLockClub where Salary={}".format(F))
+    ob.commit()
+
+#Menu
+
+print("Menu\n1.Add=1\n2.Display=2\n3.Search=3\n4.Modify=4\n5.Delete=5")
+ch=int(input("Enter choice="))
+
+#Loop for different choices
+
+while True:
+  if ch==1:
+    Add()
+    print("Thank You")
+    break
+  elif ch==2:
+    Display()
+    print("Thank You")
+    break
+  elif ch==3:
+    Search()
+    print("Thank You")
+    break
+  elif ch==4:
+    Modify()
+    print("Thank You")
+    break
+  elif ch==5:
+    Delete()
+    print("Thank You")
+    break
+  else:
+    print("Thank You")
+    break
+ob.close()
